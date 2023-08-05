@@ -10,7 +10,7 @@ class HomeResource(Resource):
         return "home test"
 
 
-api.add_resource(HomeResource, '/')
+api.add_resource(HomeResource, "/")
 
 
 if __name__ == "__main__":
