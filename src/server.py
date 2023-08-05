@@ -7,7 +7,7 @@ api = Api(app)
 
 class HomeResource(Resource):
     def get(self):
-        return "home test"
+        return "home resource"
 
 
 api.add_resource(HomeResource, '/')
