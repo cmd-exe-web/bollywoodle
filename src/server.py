@@ -1,7 +1,8 @@
-from flask import Flask, jsonify
-from flask_restful import Resource, Api
+from flask import Flask
+from flask_restful import Api
 from flask_pymongo import PyMongo
 import os
+from .controllers.controller import FetchClip
 
 app = Flask(__name__)
 api = Api(app)
@@ -23,18 +24,7 @@ mongo = PyMongo(app)
 db = mongo.db
 
 
-class HomeResource(Resource):
-    def get(self):
-        collection = db["user"]
-        data = list(collection.find({}))
-        for item in data:
-            item["_id"] = str(item["_id"])
-
-        return jsonify(data)
-
-
-api.add_resource(HomeResource, "/")
-
+api.add_resource(FetchClip, "/video/<string:video_key>")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
