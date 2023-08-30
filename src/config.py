@@ -1,13 +1,14 @@
-import boto3
 import os
+from dotenv import load_dotenv
 
-access_key_id = os.getenv("S3_ACCESS_KEY")
-secret_access_key = os.getenv("SECRET_ACCESS_KEY")
-region_name = "ap-south-1"
+load_dotenv()
 
-s3_resource = boto3.resource(
-    "s3",
-    aws_access_key_id=access_key_id,
-    aws_secret_access_key=secret_access_key,
-    region_name=region_name,
-)
+class Config:
+    DEBUG = False
+
+class DevelopmentConfig(Config):
+    DEBUG = True
+    # Mongodb Configurations
+    MONGO_URI=os.environ.get("MONGO_URI")
+    MONGODB_SETTINGS = {"db": "bollywoodle", "host": os.environ.get("MONGO_URI")}
+    COLLECTION_NAME = "videos"
