@@ -27,5 +27,9 @@ class S3Service:
         return object_names
 
     def get_object(self, object_name):
-        s3_object = self.s3_resource.Object(self.bucket_name, object_name)
-        return s3_object.get()["Body"]
+        try:
+            s3_object = self.s3_resource.Object(self.bucket_name, object_name)
+            return s3_object.get()["Body"]
+        except Exception as e:
+            print("Error retrieving video:", str(e))
+            return None
