@@ -13,7 +13,8 @@ db = MongoEngine(app)
 
 cors = CORS(app, resources={
     r"/video/*": {"origins": "http://localhost:5173"},
-    r"/validate-guess*": {"origins": "http://localhost:5173"}
+    r"/validate-guess*": {"origins": "http://localhost:5173"},
+    r"/videos": {"origins": "http://localhost:5173"}
 })
 
 api.add_resource(FetchClip, "/video/<string:video_key>")
