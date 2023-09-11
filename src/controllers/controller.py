@@ -52,3 +52,12 @@ class AllVideosResource(Resource):
                              "key": video.s3_object_key} for video in videos]
 
         return formatted_videos, 200
+
+
+class GetRandomVideoKey(Resource):
+    def get(self):
+        random_video_key = VideoService().get_random_video_key()
+        if random_video_key:
+            return {'key': random_video_key}, 200
+        else:
+            return {'message': 'No videos available'}, 404

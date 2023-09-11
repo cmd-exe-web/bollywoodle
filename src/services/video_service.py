@@ -1,4 +1,5 @@
 from ..models.video import Video
+import random
 
 
 class VideoService:
@@ -10,3 +11,11 @@ class VideoService:
         field_to_include = ["name", "s3_object_key"]
         videos = Video.objects().only(*field_to_include)
         return videos
+
+    def get_random_video_key(self):
+        videos = self.get_all_videos()
+        if videos:
+            random_video = random.choice(videos)
+            return random_video.s3_object_key
+        else:
+            return None
