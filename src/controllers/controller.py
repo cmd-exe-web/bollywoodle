@@ -42,3 +42,13 @@ class ValidateGuess(Resource):
             response = {"valid": False}
             invalid_json = json.dumps(response)
             return invalid_json, 200
+
+
+class AllVideosResource(Resource):
+    def get(self):
+        videos = VideoService().get_all_videos()
+
+        formatted_videos = [{"name": video.name,
+                             "key": video.s3_object_key} for video in videos]
+
+        return formatted_videos, 200
