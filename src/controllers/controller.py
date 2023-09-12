@@ -61,3 +61,12 @@ class GetRandomVideoKey(Resource):
             return {'key': random_video_key}, 200
         else:
             return {'message': 'No videos available'}, 404
+
+
+class VideoResource(Resource):
+    def get(self, video_key):
+        video = VideoService().get_video_by_key(video_key)
+        if video:
+            return {"name": video.name}, 200
+        else:
+            return {"message": "Video not found"}, 404
