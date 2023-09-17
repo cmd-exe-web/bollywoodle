@@ -2,7 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
 from flask_mongoengine import MongoEngine
-from .controllers.controller import FetchClip, ValidateGuess, AllVideosResource, GetRandomVideoKey, VideoResource
+from .controllers.video_controller import FetchClip, ValidateGuess, AllVideosResource, GetRandomVideoKey, VideoResource
 from .controllers.option_controller import OptionListResource, OptionResource
 from .config import DevelopmentConfig
 
@@ -17,7 +17,9 @@ cors = CORS(app, resources={
     r"/validate-guess*": {"origins": "http://localhost:5173"},
     r"/videos": {"origins": "http://localhost:5173"},
     r"/get-random-video-key": {"origins": "http://localhost:5173"},
-    r"/video/*": {"origins": "http://localhost:5173"}
+    r"/video/*": {"origins": "http://localhost:5173"},
+    r"/options": {"origins": "http://localhost:5173"},
+    r"/options/*": {"origins": "http://localhost:5173"},
 })
 
 api.add_resource(FetchClip, "/fetch-clip/<string:video_key>")
