@@ -2,7 +2,8 @@ from flask_restful import Resource, reqparse
 from ..services.option_service import OptionService
 
 parser = reqparse.RequestParser()
-parser.add_argument('name', type=str, required=True, help='Name is required')
+parser.add_argument('name', action='append',
+                    required=True, help='Name is required')
 
 
 class OptionListResource(Resource):
@@ -11,9 +12,22 @@ class OptionListResource(Resource):
         return [{'id': str(option.id), 'name': option.name} for option in options]
 
     def post(self):
-        args = parser.parse_args()
-        new_option = OptionService.create_option(args['name'])
-        return {'id': str(new_option.id), 'name': new_option.name}, 201
+        data = parser.parse_args()
+        list = data['name']
+
+        if list:
+            created_options = []
+            for name in list:
+                try:
+                    new_option = OptionService.create_option(name)
+                    created_options.append(
+                        {'id': str(new_option.id), 'name': new_option.name})
+                except Exception as e:
+                    return str(e), 409
+
+            return created_options, 201
+        else:
+            return {'message': "Invalid format: No 'name' field found"}, 400
 
 
 class OptionResource(Resource):
