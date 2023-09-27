@@ -31,14 +31,10 @@ class ValidateGuess(Resource):
         video_name = data["name"]
 
         if guess == video_name:
-            print("Is correct cnd ran")
-            print(True)
             response = {"valid": True}
             valid_json = json.dumps(response)
             return valid_json, 200
         else:
-            print("Isnt correct cnd ran")
-            print(False)
             response = {"valid": False}
             invalid_json = json.dumps(response)
             return invalid_json, 200

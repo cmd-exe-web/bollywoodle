@@ -1,4 +1,9 @@
-.vscode/
-.env/
+__pycache__
 *.pyc
+.git
+.vscode
+.vscode/
+.venv/
+.dockerignore
 Makefile
+requirements-dev.txt
